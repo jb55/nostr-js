@@ -38,7 +38,7 @@ RelayPool.prototype.has = function relayPoolHas(relayUrl) {
 	return false
 }
 
-RelayPool.prototype.setupHandlers = function relayPoolSetupHandlers(method, fn)
+RelayPool.prototype.setupHandlers = function relayPoolSetupHandlers()
 {
 	// setup its message handlers with the ones we have already
 	for (const handler of Object.keys(this.on)) {
