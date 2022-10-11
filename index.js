@@ -41,7 +41,8 @@ RelayPool.prototype.has = function relayPoolHas(relayUrl) {
 RelayPool.prototype.setupHandlers = function relayPoolSetupHandlers()
 {
 	// setup its message handlers with the ones we have already
-	for (const handler of Object.keys(this.on)) {
+	const keys = Object.keys(this.onfn)
+	for (const handler of keys) {
 		for (const relay of this.relays) {
 			relay.onfn[handler] = this.onfn[handler].bind(null, relay)
 		}
