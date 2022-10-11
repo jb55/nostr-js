@@ -233,7 +233,13 @@ Relay.prototype.send = async function relay_send(data) {
 
 function handle_nostr_message(relay, msg)
 {
-	const data = JSON.parse(msg.data)
+	let data
+	try {
+		data = JSON.parse(msg.data)
+	} catch (e) {
+		console.error("handle_nostr_message", e)
+		return
+	}
 	if (data.length >= 2) {
 		switch (data[0]) {
 		case "EVENT":
