@@ -215,14 +215,20 @@ Relay.prototype.close = function relayClose() {
 	}
 }
 
-Relay.prototype.subscribe = function relay_subscribe(sub_id, ...filters) {
-	const tosend = ["REQ", sub_id, ...filters]
-	this.ws.send(JSON.stringify(tosend))
+Relay.prototype.subscribe = function relay_subscribe(sub_id, filters) {
+	if (Array.isArray(filters))
+		this.send(["REQ", sub_id, ...filters])
+	else
+		this.send(["REQ", sub_id, filters])
 }
 
 Relay.prototype.unsubscribe = function relay_unsubscribe(sub_id) {
-	const tosend = ["CLOSE", sub_id]
-	this.ws.send(JSON.stringify(tosend))
+	this.send(["CLOSE", sub_id])
+}
+
+Relay.prototype.send = async function relay_send(data) {
+	await this.wait_connected()
+	this.ws.send(JSON.stringify(data))
 }
 
 function handle_nostr_message(relay, msg)
