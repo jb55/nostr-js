@@ -96,6 +96,40 @@ RelayPool.prototype.add = function relayPoolAdd(relay) {
 	return true
 }
 
+RelayPool.prototype.find_relays = function relayPoolFindRelays(relay_ids) {
+	if (relay_ids instanceof Relay)
+		return [relay_ids]
+
+	if (relay_ids.length === 0)
+		return []
+
+	if (!relay_ids[0])
+		throw new Error("what!?")
+
+	if (relay_ids[0] instanceof Relay)
+		return relay_ids
+
+	return this.relays.reduce((acc, relay) => {
+		if (relay_ids.some((rid) => relay.url === rid))
+			acc.push(relay)
+		return acc
+	}, [])
+}
+
+Relay.prototype.wait_connected = async function relay_wait_connected(data) {
+	let retry = 1000
+	while (true) {
+		if (this.ws.readyState !== 1) {
+			await sleep(retry)
+			retry *= 1.5
+		}
+		else {
+			return
+		}
+	}
+}
+
+
 function Relay(relay, opts={})
 {
 	if (!(this instanceof Relay))
