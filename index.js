@@ -31,7 +31,7 @@ RelayPool.prototype.on = function relayPoolOn(method, fn) {
 
 RelayPool.prototype.has = function relayPoolHas(relayUrl) {
 	for (const relay of this.relays) {
-		if (relay.relay === relayUrl)
+		if (relay.url === relayUrl)
 			return true
 	}
 
