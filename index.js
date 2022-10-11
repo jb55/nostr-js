@@ -65,17 +65,20 @@ RelayPool.prototype.remove = function relayPoolRemove(url) {
 	return false
 }
 
-RelayPool.prototype.subscribe = function relayPoolSubscribe(...args) {
-	for (const relay of this.relays) {
-		relay.subscribe(...args)
+RelayPool.prototype.subscribe = function relayPoolSubscribe(sub_id, filters, relay_ids) {
+	const relays = relay_ids ? this.find_relays(relay_ids) : this.relays
+	for (const relay of relays) {
+		relay.subscribe(sub_id, filters)
 	}
 }
 
-RelayPool.prototype.unsubscribe = function relayPoolUnsubscibe(...args) {
-	for (const relay of this.relays) {
-		relay.unsubscribe(...args)
+RelayPool.prototype.unsubscribe = function relayPoolUnsubscibe(sub_id, relay_ids) {
+	const relays = relay_ids ? this.find_relays(relay_ids) : this.relays
+	for (const relay of relays) {
+		relay.unsubscribe(sub_id)
 	}
 }
+
 
 RelayPool.prototype.add = function relayPoolAdd(relay) {
 	if (relay instanceof Relay) {
