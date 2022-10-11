@@ -198,7 +198,7 @@ async function reconnect(me)
 		await init_websocket(me)
 		me.reconnecting = false
 	} catch {
-		console.error(`error thrown during reconnect... trying again in ${n} ms`)
+		//console.error(`error thrown during reconnect... trying again in ${n} ms`)
 		await sleep(n)
 		n *= 1.5
 	}
