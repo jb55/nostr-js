@@ -81,9 +81,9 @@ export function verifyEvent(event: NostREvent): Promise<boolean>;
  *
  * Calculate an id from an event
  *
- * @param {Omit<NostREvent, "id">} ev
+ * @param {Omit<NostREvent, "id" | "sig">} ev
  */
-export function calculateId(ev: Omit<NostREvent, "id">): Promise<string>;
+export function calculateId(ev: Omit<NostREvent, "id" | "sig">): Promise<string>;
 /**
  * Get a public key from a privkey
  *
@@ -152,7 +152,7 @@ export function createDelegation(privkey: string, publisherPubkey: string, condi
  */
 export function signDelegationToken(privkey: string, unsigned_token: string): Promise<string>;
 /**
- * @param {Omit<NostREvent, "id">} ev
+ * @param {Omit<NostREvent, "id" | "sig">} ev
  */
-export function eventCommitment(ev: Omit<NostREvent, "id">): string;
+export function eventCommitment(ev: Omit<NostREvent, "id" | "sig">): string;
 export { Relay, RelayPool };
