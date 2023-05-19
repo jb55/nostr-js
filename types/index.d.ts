@@ -124,14 +124,9 @@ of `delegation.pubkey` subject to `delegation.conditions`.
  *
  * @param {string} publisher_privkey the private key of the delegate, the entity posting on behalf of `delegation.pubkey`
  * @param {NostREvent} ev The event to post as a delegate. The event's `pubkey` will be overridden by the `publisherPubkey`. The delegation tag will be upserted into the tag list.
- * @param {{pubkey: string, conditions: string, token: string}} delegation a delegation in the form returned by {@link createDelegation}
- * @returns
+ * @param {NostRDelegation} delegation a delegation in the form returned by {@link createDelegation}
  */
-export function createDelegationEvent(publisher_privkey: string, ev: NostREvent, delegation: {
-    pubkey: string;
-    conditions: string;
-    token: string;
-}): Promise<NostREvent>;
+export function createDelegationEvent(publisher_privkey: string, ev: NostREvent, delegation: NostRDelegation): Promise<NostREvent>;
 /**
  * Create a delegation. This gives `publisherPubkey` permission to create events
 on the `privkey`s behalf subject to `conditions`

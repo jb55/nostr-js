@@ -1,4 +1,3 @@
-
 const Relay = require('./lib/relay')
 const RelayPool = require('./lib/relay-pool')
 const noble = require('noble-secp256k1')
@@ -149,8 +148,7 @@ of `delegation.pubkey` subject to `delegation.conditions`.
  *
  * @param {string} publisher_privkey the private key of the delegate, the entity posting on behalf of `delegation.pubkey`
  * @param {NostREvent} ev The event to post as a delegate. The event's `pubkey` will be overridden by the `publisherPubkey`. The delegation tag will be upserted into the tag list.
- * @param {{pubkey: string, conditions: string, token: string}} delegation a delegation in the form returned by {@link createDelegation}
- * @returns 
+ * @param {NostRDelegation} delegation a delegation in the form returned by {@link createDelegation}
  */
 async function createDelegationEvent(publisher_privkey, ev, delegation) {
 	let tags = ev.tags || []
