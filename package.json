@@ -3,8 +3,10 @@
   "version": "0.2.8",
   "description": "nostr lib and cli",
   "main": "index.js",
+  "types": "types/index.d.ts",
   "scripts": {
-    "test": "tape test/*.js"
+    "test": "tape test/*.js",
+    "prepublish": "npx -p typescript tsc index.js lib/*.js --outDir types --declaration --allowJs --emitDeclarationOnly"
   },
   "repository": {
     "type": "git",
@@ -23,7 +25,8 @@
   },
   "homepage": "https://github.com/jb55/nostr-js",
   "devDependencies": {
-    "tape": "^5.6.0"
+    "tape": "^5.6.0",
+    "typescript": "^5.0.4"
   },
   "dependencies": {
     "noble-secp256k1": "^1.2.14",
