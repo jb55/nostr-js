@@ -49,10 +49,10 @@ declare class RelayPool {
     has(relayUrl: string): boolean;
     /**
      *
-     * @param {*} payload
-     * @param {*} relay_ids
+     * @param {unknown} payload
+     * @param {string[] | undefined} relay_ids
      */
-    send(payload: any, relay_ids: any): void;
+    send(payload: unknown, relay_ids: string[] | undefined): void;
     setupHandlers(): void;
     /**
      * @param {string} url
