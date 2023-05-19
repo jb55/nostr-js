@@ -62,7 +62,7 @@ function utf8_encode(txt) {
  * 
  * Calculate an id from an event
  * 
- * @param {NostREvent} ev 
+ * @param {Omit<NostREvent, "id">} ev 
  */
 async function calculateId(ev) {
 	const commit = eventCommitment(ev)
@@ -72,7 +72,7 @@ async function calculateId(ev) {
 }
 
 /**
- * @param {NostREvent} ev 
+ * @param {Omit<NostREvent, "id">} ev 
  */
 function eventCommitment(ev) {
 	const {pubkey,created_at,kind,tags,content} = ev
