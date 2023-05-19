@@ -3,31 +3,31 @@ export = RelayPool;
  * @class RelayPool
  * @classdesc Connect to a pool of relays. You should use this instead of `Relay` directly.
  * @param {string[]} relays
- * @param {{reconnect?: boolean} | undefined} opts
+ * @param {{reconnect?: boolean}} [opts]
  *
  * @example ```
 const relays = [`wss://relay1.com`, `wss://relay2.com`]
 const pool = RelayPool(relays, {reconnect: false})
 ```
  */
-declare function RelayPool(relays: string[], opts: {
+declare function RelayPool(relays: string[], opts?: {
     reconnect?: boolean;
-} | undefined): RelayPool;
+}): RelayPool;
 declare class RelayPool {
     /**
      * @class RelayPool
      * @classdesc Connect to a pool of relays. You should use this instead of `Relay` directly.
      * @param {string[]} relays
-     * @param {{reconnect?: boolean} | undefined} opts
+     * @param {{reconnect?: boolean}} [opts]
      *
      * @example ```
     const relays = [`wss://relay1.com`, `wss://relay2.com`]
     const pool = RelayPool(relays, {reconnect: false})
     ```
      */
-    constructor(relays: string[], opts: {
+    constructor(relays: string[], opts?: {
         reconnect?: boolean;
-    } | undefined);
+    });
     onfn: {};
     /**
      * @type {Relay[]}
@@ -50,9 +50,9 @@ declare class RelayPool {
     /**
      *
      * @param {unknown} payload
-     * @param {string[] | undefined} relay_ids
+     * @param {string[]} [relay_ids]
      */
-    send(payload: unknown, relay_ids: string[] | undefined): void;
+    send(payload: unknown, relay_ids?: string[]): void;
     setupHandlers(): void;
     /**
      * @param {string} url
@@ -61,15 +61,15 @@ declare class RelayPool {
     /**
      * @param {string} sub_id
      * @param {string | string[]} filters
-     * @param {string[]} relay_ids
+     * @param {string[]} [relay_ids]
      */
-    subscribe(sub_id: string, filters: string | string[], relay_ids: string[]): void;
+    subscribe(sub_id: string, filters: string | string[], relay_ids?: string[]): void;
     /**
      *
      * @param {string} sub_id
-     * @param {string[] | undefined} relay_ids unscubscribe from all relays if undefined
+     * @param {string[]} [relay_ids] unscubscribe from all relays if undefined
      */
-    unsubscribe(sub_id: string, relay_ids: string[] | undefined): void;
+    unsubscribe(sub_id: string, relay_ids?: string[]): void;
     /**
      * @param {Relay | string} relay
      * @returns {boolean} true if relay was added, false if it already exists

@@ -2,22 +2,22 @@ export = Relay;
 /**
  * @classdesc Connect to a relay server and subscribe to events.
  * @param {string} relay
- * @param {{reconnect?: boolean} | undefined} opts
+ * @param {{reconnect?: boolean}} [opts]
  * @class Relay
  */
 declare function Relay(relay: string, opts?: {
     reconnect?: boolean;
-} | undefined): Relay;
+}): Relay;
 declare class Relay {
     /**
      * @classdesc Connect to a relay server and subscribe to events.
      * @param {string} relay
-     * @param {{reconnect?: boolean} | undefined} opts
+     * @param {{reconnect?: boolean}} [opts]
      * @class Relay
      */
     constructor(relay: string, opts?: {
         reconnect?: boolean;
-    } | undefined);
+    });
     url: string;
     opts: {
         reconnect?: boolean;
