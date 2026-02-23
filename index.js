@@ -1,8 +1,7 @@
-
-const Relay = require('./lib/relay')
-const RelayPool = require('./lib/relay-pool')
-const noble = require('noble-secp256k1')
-const crypto = require('crypto')
+import Relay from './lib/relay.js'
+import RelayPool from './lib/relay-pool.js'
+import noble from 'noble-secp256k1'
+import crypto from 'crypto'
 
 async function signId(privkey, id) {
 	return await noble.schnorr.sign(id, privkey)
@@ -13,14 +12,8 @@ async function verifyEvent(event) {
 }
 
 function utf8_encode(txt) {
-	if (typeof TextEncoder !== 'undefined' && TextEncoder) {
-		const encoder = new TextEncoder()
-		return encoder.encode(txt)
-	} else {
-		const util = require('util');
-		const encoder = new util.TextEncoder('utf-8');
-		return encoder.encode(txt)
-	}
+	const encoder = new TextEncoder()
+	return encoder.encode(txt)
 }
 
 async function calculateId(ev) {
@@ -39,7 +32,7 @@ function delegationCommitment(pk, conditions) {
 	return `nostr:delegation:${pk}:${conditions}`
 }
 
-async function signDelegationToken(privkey, unsigned_token) 
+async function signDelegationToken(privkey, unsigned_token)
 {
 	const hash = hexEncode(await noble.utils.sha256(unsigned_token))
 	return (await signId(privkey, hash))
@@ -59,7 +52,6 @@ function createDelegationTag(delegation) {
 
 function upsert_delegation_tag(tags, delegation)
 {
-	let found = false
 	for (const tag of tags) {
 		if (tag.length >= 4 && tag[0] === "delegation") {
 			tag[1] = delegation.pubkey
@@ -110,26 +102,25 @@ function base64_decode(str)
 	throw new Error("no base64 implementation")
 }
 
-
 function encryptDm(privkey, to, msg) {
 	const shared_point = noble.getSharedSecret(privkey, '02' + to)
 	const shared_x = shared_point.substr(2, 64)
 	const iv = crypto.randomBytes(16);
 	const cipher = crypto.createCipheriv(
-                'aes-256-cbc',
-                Buffer.from(shared_x, 'hex'),
+		'aes-256-cbc',
+		Buffer.from(shared_x, 'hex'),
 		iv
 	)
 
 	let encrypted = cipher.update(msg, 'utf8', 'base64');
-        encrypted += cipher.final('base64');
+	encrypted += cipher.final('base64');
 
 	return encrypted + "?iv=" + iv.toString('base64')
 }
 
 function decryptDm(privkey, ev) {
 	let [enc, iv] = ev.content.split("?")
-	if (!iv || !enc)
+	if (!enc || !iv)
 		return
 	iv = iv.slice(3)
 	iv = base64_decode(iv)
@@ -137,9 +128,9 @@ function decryptDm(privkey, ev) {
 	const shared_point = noble.getSharedSecret(privkey, '02' + ev.pubkey)
 	const shared_x = shared_point.substr(2, 64)
 	const decipher = crypto.createDecipheriv(
-                'aes-256-cbc',
-                Buffer.from(shared_x, 'hex'),
-                iv
+		'aes-256-cbc',
+		Buffer.from(shared_x, 'hex'),
+		iv
 	)
 
 	let decrypted = decipher.update(enc, "base64", "utf8")
@@ -148,12 +139,11 @@ function decryptDm(privkey, ev) {
 	return decrypted
 }
 
-
 function getPublicKey(privkey) {
 	return noble.schnorr.getPublicKey(privkey)
 }
 
-module.exports = {
+export {
 	Relay,
 	RelayPool,
 	signId,
@@ -169,4 +159,3 @@ module.exports = {
 	signDelegationToken,
 	eventCommitment
 }
-
