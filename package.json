@@ -1,7 +1,8 @@
 {
   "name": "nostr",
-  "version": "0.2.8",
+  "version": "0.3.0",
   "description": "nostr lib and cli",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "tape test/*.js"
